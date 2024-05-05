@@ -4,18 +4,24 @@
       class="header d-flex justify-content-center justify-content-md-start flex-wrap"
     >
       <li class="header__item">
-        <a href="#">
+        <router-link to="/">
           <img src="@/assets/logo/Logo.svg" alt="logo" />
-        </a>
+        </router-link>
       </li>
       <li class="header__item">
-        <a href="#">Our coffee</a>
+        <router-link :to="{name: 'OurCoffe'}">
+          Our coffee
+        </router-link>
       </li>
       <li class="header__item">
-        <a href="#">For your pleasure</a>
+        <router-link :to="{name: 'Goods'}">
+          For your pleasure
+        </router-link>
       </li>
       <li class="header__item">
-        <a href="#">Contact us</a>
+        <router-link :to="{name: 'Contact'}">
+          Contact us
+        </router-link>
       </li>
     </ul>
   </header>
