@@ -36,7 +36,7 @@
                 <div class="row">
                     <div class="col-lg-10 offset-lg-1">
                         <div class="shop__wrapper">
-                            <CardCoffeeComponent v-for="card of arrProd" :key="card.name" :cardProd="card"/>
+                            <CardComponents v-for="card of arrProd" :key="card.name" :cardInfo="card" classElem="good__item"/>
                         </div>
                     </div>
                 </div>
@@ -47,15 +47,14 @@
 
 <script>
 import Header from '@/components/Header.vue'
-import CardCoffeeComponent from '@/components/CardCoffeeComponent.vue';
-import { ref } from 'vue';
 import axiosClient from '@/axiosClient';
+import CardComponents from "@/components/CardComponents.vue";
 
     export default {
-      components: {Header, CardCoffeeComponent},
+      components: {CardComponents, Header},
 
       data() {
-        let arrProd = ref([])
+        let arrProd = []
 
         return {
           arrProd
@@ -64,7 +63,7 @@ import axiosClient from '@/axiosClient';
 
       methods: {
         getDataCard() {
-          axiosClient.get('/coffee').then(res => {
+          axiosClient.get('/goods').then(res => {
             res.data.forEach((obj) => {
               this.arrProd.push(obj)
             })

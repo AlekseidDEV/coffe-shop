@@ -69,7 +69,7 @@
         <div class="row">
           <div class="col-lg-10 offset-lg-1">
             <div class="shop__wrapper">
-              <CardCoffeeComponent v-for="card of arrProd" :key="card.name" :cardProd="card"/>
+              <CardComponents v-for="card of arrProd" :key="card.name" :cardInfo="card" classElem="shop__item"/>
             </div>
           </div>
         </div>
@@ -81,16 +81,14 @@
 <script>
 import Header from "@/components/Header.vue";
 import CardComponents from "@/components/CardComponents.vue";
-import CardCoffeeComponent from "@/components/CardCoffeeComponent.vue";
 
-import {ref} from "vue";
 import axiosClient from "@/axiosClient";
 
 export default {
-  components: {Header, CardComponents, CardCoffeeComponent},
+  components: {Header, CardComponents},
 
   data() {
-    let arrProd = ref([]);
+    let arrProd = []
 
     return {
       arrProd

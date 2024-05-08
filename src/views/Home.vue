@@ -63,6 +63,7 @@
                 v-for="card of arrCard"
                 :cardInfo="card"
                 :key="card.name"
+                classElem="best__item"
               />
             </div>
           </div>
@@ -75,14 +76,13 @@
 <script>
 import Header from "@/components/Header.vue";
 import CardComponents from "@/components/CardComponents.vue";
-import { ref } from "vue";
 import axiosClient from "@/axiosClient";
 
 export default {
   components: { Header, CardComponents },
 
   data(){
-    let arrCard = ref([])
+    let arrCard = []
     return {
       arrCard
     }
