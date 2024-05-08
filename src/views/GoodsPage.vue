@@ -48,23 +48,32 @@
 <script>
 import Header from '@/components/Header.vue'
 import CardCoffeeComponent from '@/components/CardCoffeeComponent.vue';
-import { onMounted, ref } from 'vue';
+import { ref } from 'vue';
 import axiosClient from '@/axiosClient';
 
-    export default{
-        components: {Header, CardCoffeeComponent},
-        setup(){
-            let arrProd = ref([])
+    export default {
+      components: {Header, CardCoffeeComponent},
 
-            onMounted(() => {
-                axiosClient.get('/coffee').then(res => {
-                    arrProd.value = res.data
-                })
-            })
+      data() {
+        let arrProd = ref([])
 
-            return{
-                arrProd
-            }
+        return {
+          arrProd
         }
+      },
+
+      methods: {
+        getDataCard() {
+          axiosClient.get('/coffee').then(res => {
+            res.data.forEach((obj) => {
+              this.arrProd.push(obj)
+            })
+          })
+        }
+      },
+
+      mounted() {
+        this.getDataCard()
+      }
     }
 </script>

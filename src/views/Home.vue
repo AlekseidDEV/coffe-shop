@@ -61,8 +61,8 @@
             <div class="best__wrapper">
               <CardComponents
                 v-for="card of arrCard"
-                :key="card.name"
                 :cardInfo="card"
+                :key="card.name"
               />
             </div>
           </div>
@@ -75,23 +75,31 @@
 <script>
 import Header from "@/components/Header.vue";
 import CardComponents from "@/components/CardComponents.vue";
-import { onMounted, ref } from "vue";
+import { ref } from "vue";
 import axiosClient from "@/axiosClient";
 
 export default {
   components: { Header, CardComponents },
-  setup() {
-    let arrCard = ref([]);
 
-    onMounted(() => {
-      axiosClient.get("bestsellers").then((res) => {
-        arrCard.value = res.data;
-      });
-    });
-
+  data(){
+    let arrCard = ref([])
     return {
-      arrCard,
-    };
+      arrCard
+    }
   },
+
+ methods:{
+    getArrCard(){
+      axiosClient.get("bestsellers").then((res) => {
+       res.data.forEach((obj) => {
+         this.arrCard.push(obj)
+       })
+      });
+    }
+ },
+
+  mounted() {
+    this.getArrCard()
+  }
 };
 </script>
