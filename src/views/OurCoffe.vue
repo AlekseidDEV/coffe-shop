@@ -82,7 +82,7 @@
 import Header from "@/components/Header.vue";
 import CardComponents from "@/components/CardComponents.vue";
 
-import axiosClient from "@/axiosClient";
+import {axiosClient} from "@/axiosClient";
 
 export default {
   components: {Header, CardComponents},

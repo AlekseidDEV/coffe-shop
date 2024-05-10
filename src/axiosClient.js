@@ -1,7 +1,9 @@
 import  Axios  from "axios";
 
-const axiosClient = Axios.create({
+export const axiosClient = Axios.create({
     baseURL: 'http://localhost:1808/'
 })
 
-export default axiosClient
+export const axiosJson = Axios.create({
+    baseURL: 'https://jsonplaceholder.typicode.com'
+})

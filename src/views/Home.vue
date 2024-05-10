@@ -19,7 +19,11 @@
               We makes every day full of energy and taste
             </div>
             <div class="preview__subtitle">Want to try our beans?</div>
-            <a href="#" class="preview__btn">More</a>
+            <a
+                @click.prevent="smoothScroll"
+                href="#about"
+                class="preview__btn"
+            >More</a>
           </div>
         </div>
       </div>
@@ -53,7 +57,7 @@
         </div>
       </div>
     </section>
-    <section class="best">
+    <section class="best"  id="about" ref="about">
       <div class="container">
         <div class="title">Our best</div>
         <div class="row">
@@ -76,7 +80,7 @@
 <script>
 import Header from "@/components/Header.vue";
 import CardComponents from "@/components/CardComponents.vue";
-import axiosClient from "@/axiosClient";
+import {axiosClient} from "@/axiosClient";
 
 export default {
   components: { Header, CardComponents },
@@ -95,7 +99,14 @@ export default {
          this.arrCard.push(obj)
        })
       });
-    }
+    },
+
+   smoothScroll(e){
+     this.$refs.about.scrollIntoView({
+       behavior: 'smooth',
+       block: 'center'
+     })
+   }
  },
 
   mounted() {

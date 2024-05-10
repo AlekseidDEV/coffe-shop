@@ -47,7 +47,7 @@
 
 <script>
 import Header from '@/components/Header.vue'
-import axiosClient from '@/axiosClient';
+import {axiosClient} from "@/axiosClient";
 import CardComponents from "@/components/CardComponents.vue";
 
     export default {

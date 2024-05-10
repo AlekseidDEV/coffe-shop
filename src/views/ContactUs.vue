@@ -17,7 +17,7 @@
             <div class="title mt-5">Tell us about your tastes</div>
             <img class="beanslogo mt-5" src="@/assets/logo/Beans_logo_dark.svg" alt="Beans logo">
 
-            <form action="#" class="mt-5">
+            <form action="#" class="mt-5"  @submit.prevent="sendForm">
               <div class="form-group row">
                 <div class="col col-12 col-sm-3 d-flex align-items-center">
                   <label for="name-input" class="mb-0">
@@ -26,7 +26,7 @@
                   </label>
                 </div>
                 <div class="col col-12 col-sm-9">
-                  <input type="text" class="form-control" id="name-input">
+                  <input type="text" class="form-control" id="name-input" v-model.lazy="arrFormContact.name">
                 </div>
               </div>
 
@@ -38,7 +38,7 @@
                   </label>
                 </div>
                 <div class="col col-12 col-sm-9">
-                  <input type="email" class="form-control" id="email-input">
+                  <input type="email" class="form-control" id="email-input" v-model.lazy="arrFormContact.email">
                 </div>
               </div>
 
@@ -49,7 +49,7 @@
                   </label>
                 </div>
                 <div class="col col-12 col-sm-9">
-                  <input type="tel" class="form-control" id="phone-input">
+                  <input type="tel" class="form-control" id="phone-input" v-model.lazy="arrFormContact.phone">
                 </div>
               </div>
 
@@ -62,7 +62,7 @@
                 </div>
                 <div class="col col-12">
                                     <textarea class="form-control" name="message" id="message" rows="5"
-                                              placeholder="Leave your comments here"></textarea>
+                                              placeholder="Leave your comments here" v-model.lazy="arrFormContact.message"></textarea>
                 </div>
               </div>
 
@@ -81,8 +81,54 @@
 
 <script>
 import Header from '@/components/Header.vue'
+import {axiosJson} from "@/axiosClient";
 
 export default {
-  components: {Header}
+  components: {Header},
+
+  data(){
+    let arrFormContact = {
+      name: '',
+      email: '',
+      phone: '',
+      message: ''
+    }
+
+    return{
+      arrFormContact,
+
+    }
+  },
+
+  methods:{
+    sendForm(){
+      if(this.validForm(Object.values(this.arrFormContact).slice(0, -1))){
+          axiosJson.post('/posts', {
+            headers: {"Content-Type": "application/json;charset=utf-8",},
+            data: JSON.stringify(this.arrFormContact)
+          }).then(() => {
+            this.$toast.success('Данные успешно отправлены')
+          }).catch(() => {
+            this.$toast.error('Ошибка отправки формы')
+          })
+      } else {
+        this.$toast.warning("Заполните поля !")
+      }
+    },
+
+    validForm(valueArr){
+      let succes = false
+
+      succes = valueArr.every((str) => {
+        if(str === ''){
+          return false
+        }else {
+          return true
+        }
+      })
+
+      return succes
+    }
+  },
 }
 </script>
