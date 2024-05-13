@@ -43,33 +43,16 @@
           </div>
         </div>
         <div class="line"></div>
-        <div class="row">
-          <div class="col-lg-4 offset-2">
-            <form action="#" class="shop__search">
-              <label class="shop__search-label" for="filter">Looking for</label>
-              <input
-                  id="filter"
-                  type="text"
-                  placeholder="start typing here..."
-                  class="shop__search-input"
-              />
-            </form>
-          </div>
-          <div class="col-lg-4">
-            <div class="shop__filter">
-              <div class="shop__filter-label">Or filter</div>
-              <div class="shop__filter-group">
-                <button class="shop__filter-btn">Brazil</button>
-                <button class="shop__filter-btn">Kenya</button>
-                <button class="shop__filter-btn">Columbia</button>
-              </div>
-            </div>
-          </div>
-        </div>
+          <FilterBlock/>
         <div class="row">
           <div class="col-lg-10 offset-lg-1">
             <div class="shop__wrapper">
-              <CardComponents v-for="card of arrProd" :key="card.name" :cardInfo="card" classElem="shop__item"/>
+              <CardComponents
+                  v-for="card of getArrprod"
+                  :key="card.name"
+                  :cardInfo="card"
+                  classElem="shop__item"
+              />
             </div>
           </div>
         </div>
@@ -81,32 +64,27 @@
 <script>
 import Header from "@/components/Header.vue";
 import CardComponents from "@/components/CardComponents.vue";
+import FilterBlock from '@/components/FilterBlock.vue'
 
 import {axiosClient} from "@/axiosClient";
 
 export default {
-  components: {Header, CardComponents},
-
-  data() {
-    let arrProd = []
-
-    return {
-      arrProd
-    }
-  },
+  components: {Header, CardComponents, FilterBlock},
 
   methods: {
-    getArrCArd() {
-      axiosClient.get("/coffee").then((res) => {
-        res.data.forEach((obj) =>{
-          this.arrProd.push(obj)
-        })
-      });
+    getArrCard() {
+      this.$store.dispatch('setCoffeProd')
     }
   },
 
-  mounted() {
-    this.getArrCArd()
+  computed: {
+    getArrprod(){
+      return this.$store.getters['getProdCoffe']
+    }
+  },
+
+  beforeMount() {
+    this.getArrCard()
   }
 };
 </script>

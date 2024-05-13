@@ -36,7 +36,12 @@
                 <div class="row">
                     <div class="col-lg-10 offset-lg-1">
                         <div class="shop__wrapper">
-                            <CardComponents v-for="card of arrProd" :key="card.name" :cardInfo="card" classElem="good__item"/>
+                            <CardComponents
+                                v-for="card of getProd"
+                                :key="card.name"
+                                :cardInfo="card"
+                                classElem="good__item"
+                            />
                         </div>
                     </div>
                 </div>
@@ -53,25 +58,21 @@ import CardComponents from "@/components/CardComponents.vue";
     export default {
       components: {CardComponents, Header},
 
-      data() {
-        let arrProd = []
-
-        return {
-          arrProd
-        }
-      },
-
       methods: {
         getDataCard() {
           axiosClient.get('/goods').then(res => {
-            res.data.forEach((obj) => {
-              this.arrProd.push(obj)
-            })
+            this.$store.dispatch('setGoods', res.data)
           })
         }
       },
 
-      mounted() {
+      computed: {
+        getProd(){
+          return this.$store.getters['getGoods']
+        }
+      },
+
+      beforeMount() {
         this.getDataCard()
       }
     }

@@ -64,7 +64,7 @@
           <div class="col-lg-10 offset-lg-1">
             <div class="best__wrapper">
               <CardComponents
-                v-for="card of arrCard"
+                v-for="card of getCard"
                 :cardInfo="card"
                 :key="card.name"
                 classElem="best__item"
@@ -85,32 +85,30 @@ import {axiosClient} from "@/axiosClient";
 export default {
   components: { Header, CardComponents },
 
-  data(){
-    let arrCard = []
-    return {
-      arrCard
+ methods: {
+   getArrCard() {
+     axiosClient.get("bestsellers").then((res) => {
+       this.$store.dispatch('setCardCoffe', res.data)
+     });
+   },
+ },
+
+  computed:{
+    getCard(){
+      return this.$store.getters['getProd']
     }
   },
-
- methods:{
-    getArrCard(){
-      axiosClient.get("bestsellers").then((res) => {
-       res.data.forEach((obj) => {
-         this.arrCard.push(obj)
-       })
-      });
-    },
 
    smoothScroll(e){
      this.$refs.about.scrollIntoView({
        behavior: 'smooth',
        block: 'center'
      })
-   }
- },
+   },
 
-  mounted() {
+  beforeMount() {
     this.getArrCard()
   }
-};
+}
+
 </script>
