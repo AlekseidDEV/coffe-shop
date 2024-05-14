@@ -52,6 +52,7 @@
                   :key="card.name"
                   :cardInfo="card"
                   classElem="shop__item"
+                  @onNavigate="navigate"
               />
             </div>
           </div>
@@ -65,8 +66,7 @@
 import Header from "@/components/Header.vue";
 import CardComponents from "@/components/CardComponents.vue";
 import FilterBlock from '@/components/FilterBlock.vue'
-
-import {axiosClient} from "@/axiosClient";
+import router from "@/router";
 
 export default {
   components: {Header, CardComponents, FilterBlock},
@@ -74,6 +74,10 @@ export default {
   methods: {
     getArrCard() {
       this.$store.dispatch('setCoffeProd')
+    },
+
+    navigate(id){
+     router.push({name: 'item-coffe', params: {id: id}})
     }
   },
 

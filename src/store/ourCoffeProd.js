@@ -42,6 +42,12 @@ const coffeProd = {
     getters: {
         getProdCoffe(state){
             return state.arrProd
+        },
+
+        getProdById(state){
+            return (id) => {
+                return state.arrProd.find(item => item.id === +id)
+            }
         }
     }
 }

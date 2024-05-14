@@ -41,6 +41,7 @@
                                 :key="card.name"
                                 :cardInfo="card"
                                 classElem="good__item"
+                                @onNavigate="navigate"
                             />
                         </div>
                     </div>
@@ -54,6 +55,7 @@
 import Header from '@/components/Header.vue'
 import {axiosClient} from "@/axiosClient";
 import CardComponents from "@/components/CardComponents.vue";
+import router from "@/router";
 
     export default {
       components: {CardComponents, Header},
@@ -63,6 +65,10 @@ import CardComponents from "@/components/CardComponents.vue";
           axiosClient.get('/goods').then(res => {
             this.$store.dispatch('setGoods', res.data)
           })
+        },
+
+        navigate(id){
+          router.push({name: 'item-goods', params: {id: id}})
         }
       },
 

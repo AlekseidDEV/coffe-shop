@@ -18,6 +18,12 @@ const goods = {
     getters: {
         getGoods(state){
             return state.goodsArr
+        },
+
+        getGoodItemId(state){
+            return (id) => {
+                return state.goodsArr.find(item => item.id === +id)
+            }
         }
     }
 }

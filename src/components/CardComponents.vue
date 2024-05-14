@@ -1,5 +1,5 @@
 <template>
-  <div :class="classElem">
+  <div :class="classElem" @click="onEmit(cardInfo.id)">
     <img :src="cardInfo.url" alt="coffee" />
     <div class="best__item-title">{{ cardInfo.name }}</div>
     <div class="best__item-price">{{ cardInfo.price }}</div>
@@ -16,5 +16,11 @@ export default {
       required: false
     }
   },
+
+  methods:{
+    onEmit(id){
+      this.$emit('onNavigate', id)
+    }
+  }
 };
 </script>
