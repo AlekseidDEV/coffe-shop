@@ -5,5 +5,6 @@ export const axiosClient = Axios.create({
 })
 
 export const axiosJson = Axios.create({
+    method: 'POST',
     baseURL: 'https://jsonplaceholder.typicode.com'
 })
