@@ -2,7 +2,8 @@ import {axiosClient} from "@/axiosClient";
 
 const coffeProd = {
     state:{
-        arrProd: []
+        arrProd: [],
+        isLoading: false
     },
 
     actions: {
@@ -22,20 +23,31 @@ const coffeProd = {
             axiosClient.get(`/coffee?country=${words}`).then(res => {
                 commit('setFilterCoffe', res.data)
             })
+        },
+
+        setIsLoad({commit}, value){
+            commit('setIsLoad', value)
         }
     },
 
     mutations: {
         setCoffeProd(state, arrCard){
             state.arrProd = arrCard
+            state.isLoading = true
         },
 
         setSearchCoffe(state, searchProd){
+            state.isLoading = true
             state.arrProd = searchProd
         },
 
         setFilterCoffe(state, filterProd){
+            state.isLoading = true
             state.arrProd = filterProd
+        },
+
+        setIsLoad(state, value){
+            state.isLoading = value
         }
     },
 
@@ -48,6 +60,10 @@ const coffeProd = {
             return (id) => {
                 return state.arrProd.find(item => item.id === +id)
             }
+        },
+
+        getStatusLoad(state){
+            return state.isLoading
         }
     }
 }

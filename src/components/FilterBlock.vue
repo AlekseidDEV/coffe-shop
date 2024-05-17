@@ -48,13 +48,16 @@ export default {
 
   methods: {
     getSeacrProd(text){
+      this.$store.dispatch('setIsLoad', false)
       this.$store.dispatch('setSearchCoffe', text)
     },
 
     filterProduct(e){
       if(!e.target.matches('.btn_reset')){
+        this.$store.dispatch('setIsLoad', false)
         this.$store.dispatch('setFilterCoffe', e.target.innerText)
       } else {
+        this.$store.dispatch('setIsLoad', false)
         this.$store.dispatch('setCoffeProd')
       }
     }

@@ -6,8 +6,12 @@ import store from './store'
 
 import './assets/scss/style.scss'
 import "vue-toastification/dist/index.css";
+import Spiner from './components/Spiner.vue'
 
 Vue.config.productionTip = false
+
+Vue
+    .component('Spiner',Spiner)
 
 Vue.use(Toast, {
   timeout: 5000,

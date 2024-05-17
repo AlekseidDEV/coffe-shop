@@ -46,7 +46,7 @@
           <FilterBlock/>
         <div class="row">
           <div class="col-lg-10 offset-lg-1">
-            <div class="shop__wrapper">
+            <div class="shop__wrapper" v-if="statusLoad">
               <CardComponents
                   v-for="card of getArrprod"
                   :key="card.name"
@@ -55,6 +55,12 @@
                   @onNavigate="navigate"
               />
             </div>
+            <div class="shop__wrapper" v-else><Spiner/></div>
+
+            <div class="shop__wrapper" v-if="getArrprod.length === 0 && statusLoad">
+                <span class="no-results">no results</span>
+            </div>
+
           </div>
         </div>
       </div>
@@ -84,14 +90,23 @@ export default {
   computed: {
     getArrprod(){
       return this.$store.getters['getProdCoffe']
+    },
+
+    statusLoad(){
+      return this.$store.getters['getStatusLoad']
     }
   },
 
-  beforeMount() {
+  mounted() {
     this.getArrCard()
   }
 };
 </script>
 
-<style>
+<style scoped>
+.no-results{
+  padding-top: 100px;
+  padding-bottom: 100px;
+  margin: auto;
+}
 </style>

@@ -167,8 +167,6 @@ export default {
     },
 }
 
-
-
 </script>
 
 <style>
